@@ -1,0 +1,5 @@
+"0","second_highest_prices_data = subset(housingprice, zipcode == 98004, select = c(price))"
+"0",""
+"0","third_highest_prices_data = subset(housingprice, zipcode == 98040, select = c(price))"
+"0",""
+"0","boxplot(highest_prices_data)"

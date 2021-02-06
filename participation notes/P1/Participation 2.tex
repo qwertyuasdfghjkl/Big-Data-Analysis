@@ -1,0 +1,156 @@
+\documentclass[twoside]{article}
+\usepackage{enumerate}
+\usepackage{amsmath,amsthm,amssymb,epsfig}
+\usepackage{url}
+\usepackage{times}
+%\usepackage{bbm}
+%\usepackage{star}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newenvironment{pf}{{\noindent\sc Proof. }}{\qed}
+\newenvironment{map}{\[\begin{array}{cccc}} {\end{array}\]}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{exmp}{Example}
+\newtheorem*{prob}{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{exer}{Exercise}
+
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf ORF350 (Spring 2016) Analysis of Big Data \hfill Assignment: #4} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\Large \hfill #1  \hfill} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\it Lecturer: #2 \hfill Email: #3} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{#1}{#1}
+   \vspace*{4mm}
+}
+
+\def\R{{\mathbb R}}
+\def\X{{\mathcal X}}
+\def\Y{{\mathcal Y}}
+\def\E{{\mathbb E}}
+\def\sign{{\rm sign}}
+\def\ds{\displaystyle}
+
+\begin{document}
+
+	\title{Lecture 3 Overview}
+	\author{Zi Jian Liu}
+	
+	\date{Jan 29 2021}
+	
+	\maketitle
+	
+	\section*{Regression and Classification}
+	
+	We started off covering Model based Interpretation of OLS Regression. We used the Gaussian Noise model and looked at the Joint log-likelihood, and found that the OLS estimator is the MLE and is optimal under the Gaussian Noise Model.
+	
+	Why do we care about model based interpretations?
+	\begin{enumerate}
+	
+		\item Optimal estimator
+	
+		\item Confidence Intervals/p-values/statistical significance
+		
+		\item Generative Story
+		
+		\item Bayesian Inference
+
+	\end{enumerate}
+
+	\section*{Feature Engineering}
+	
+	We first covered Linear regression with Basis Expansion and from linear to nonlinear:
+	\begin{enumerate}
+	
+		\item Input $\boldsymbol{X}$ can be transformations of original features. (Handcrafted features)
+	
+		\item Inputs can be interaction terms
+		
+		\item Inputs can be basis expansions
+		
+		\item Indicator functions of quantitative inputs, more generally, categorical data analysis
+
+	\end{enumerate}
+	
+	We then covered High Dimensional Data, where the dimensionality d is comparable to or greater than the sample size n. We covered two regularization methods, a two-stage procedure and a single-step method. We had a graphic illustration and solved for the Ridge estimator.
+	
+	We covered a basic method of Model Selection, Data Splitting, which generalizes well and is theoretically and computationally simple, but wastes training data. The solution of which is to use J-fold cross validation for Model Selection.
+	
+	
+	\section*{Honor Code}
+	
+	I pledge my honor that this lecture summary is my own work and adheres to the guidelines in the instructions.
+	
+	-Zi Jian Liu
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

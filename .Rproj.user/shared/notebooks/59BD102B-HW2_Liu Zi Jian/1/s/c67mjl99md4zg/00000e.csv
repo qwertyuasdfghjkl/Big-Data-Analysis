@@ -1,0 +1,2 @@
+"0","# coverting zipcode column into factors"
+"0","housingData$zipcode <- as.factor(housingData$zipcode)"

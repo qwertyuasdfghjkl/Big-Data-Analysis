@@ -1,0 +1,9 @@
+"0","library('car')"
+"2","package ‘car’ was built under R version 4.0.3"
+"2","Loading required package: carData
+"
+"2","package ‘carData’ was built under R version 4.0.3"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"

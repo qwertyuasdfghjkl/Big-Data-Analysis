@@ -1,0 +1,252 @@
+\documentclass[11pt]{article}
+%Created on 4/10/07.
+
+%%%extra package
+%\usepackage{imsart}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb}
+
+%% Please use the following statements for
+%% managing the text and math fonts for your papers:
+\usepackage{times}
+%\usepackage[cmbold]{mathtime}
+\usepackage{bm}
+%\usepackage{natbib}
+\usepackage{algorithm}
+\usepackage{xargs}[2008/03/08]
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{rotating,subfigure}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage{enumitem} %%%enumitem
+
+%%%STAR micro
+\usepackage{star}
+
+
+%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[colorlinks,
+linkcolor=blue,
+anchorcolor=blue,
+citecolor=blue
+]{hyperref}
+
+%%%%operators
+\def\skeptic{{\sc skeptic}}
+\newcommand{\sgn}{\mathop{\mathrm{sign}}}
+\providecommand{\bnorm}[1]{\big\|#1\big\|}
+\providecommand{\enorm}[1]{| \! | \! |#1| \! | \! |}
+\providecommand{\bemnorm}[1]{\big| \! \big| \! \big|#1\big| \! \big| \! \big|}
+
+
+%%%%My macros 
+\newcommand*{\Sc}{\cS^{\perp}}
+\newcommand*{\Ac}{\cA^{\perp}}
+\newcommand*{\supp}{\mathrm{supp}}
+%\usepackage{cite}
+
+\newcommand \rw{\mathrm{w}}
+%%%%Definition of Equation environment
+\def\T{{ \mathrm{\scriptscriptstyle T} }}
+\def\v{{\varepsilon}}
+  
+%%%%Definition of Equation environment
+\def\##1\#{\begin{align}#1\end{align}}
+\def\$#1\${\begin{align*}#1\end{align*}}
+
+%%%%notation macros
+\newcommand{\rF}{\textnormal{F}}
+\renewcommand{\tr}{\textrm{trace}}
+
+%%%%Definition of Operators
+\newcommand {\vecc}{\textnormal {vec}}
+\def\T{{ \mathrm{\scriptscriptstyle T} }} %%%transpose operator
+
+%%%%Definition of Roman Numbers
+\newcommand{\Rom}[1]{\text{\uppercase\expandafter{\romannumeral #1\relax}}}
+
+
+%%%comment
+\newcommand{\scolor}[1]{{\color{magenta}#1}}
+\newcommand{\sscomment}[2]{\scolor{ #1}\marginpar{\tiny\scolor{SQ:\ #2}}}
+\newcommand{\scomment}[1]{\scolor{$\dagger$}\marginpar{\tiny\scolor{SQ:\ #1}}\hspace{-3pt}}
+
+
+%%%for adobe time roman font
+\usepackage{txfonts}
+
+
+%%%margin and textwidth
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ %total={170mm,257mm},
+ left=31mm,
+ top=30mm,
+ }
+\textwidth=6in
+
+
+%%%baseline stretch
+\renewcommand{\baselinestretch}{1.2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%Macros for homeworks
+\renewcommand*{\proofname}{Solution}
+\theoremstyle{mytheoremstyle}
+\ifx\question\undefined
+\newtheorem{question}{Question}
+\fi
+
+
+\begin{document}
+
+\thispagestyle{empty}
+
+%\draftnotice
+
+\begin{center}
+\bf\large Tutorial 1: Introduction to LaTex
+\end{center}
+
+\noindent
+Yicheng  %%% FILL IN LECTURER (if not RS)
+\hfill
+Jan 21, 2021           %%% FILL IN LECTURE DATE HERE
+
+\noindent
+\rule{\textwidth}{1pt}
+
+\medskip
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BODY OF SCRIBE NOTES GOES HERE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Install Your LaTex}
+
+\subsection{Install a LaTex Compiler}
+Find it via \url{https://www.latex-project.org/get/}
+
+\subsection{Install a LaTex Editor}
+For Windows: WinEdt, TeXMaker, TeXstudio, etc;\\
+For Mac: TeXShop, MacTex, etc.
+
+\section{Fonts Selection}
+\subsection{Text-Mode Fonts}
+Text-mode: Given random samples .... \\
+\textbf{Given random samples ....} {\bf Given random samples ....}\\
+\textit{Given random samples ....} {\it Given random samples ....}\\
+
+{\tiny size} {\scriptsize size} {\footnotesize size} {\small size} size {\large size} {\Large size} {\LARGE size} {\huge size} {\Huge size}
+
+\subsection{Math-Mode Fonts}
+Math mode: $X_1,\cdots,X_n$ ... \\
+$ABC$, $\mathbf{ABC}$,  $\mathcal{ABC}$,  $\mathbb{ABC}$
+
+\section{Format}
+\subsection{Structure}
+Sections $\longrightarrow$ Subsections $\longrightarrow$ Subsubsections
+
+\subsubsection{subsubsection}
+
+NO ``subsubsubsections''
+
+\subsection{New lines and paragraphs}
+Line1\\
+Line2\\
+Line3
+
+Par1
+
+Par2
+
+Par3
+
+\noindent Par4
+
+\vspace{0.2in}
+Par5
+
+
+%\iffalse
+\section{Tables}
+A table through {\color{blue}tabular} environment.
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c|c|c}
+\hline A & B & C & D\\
+\hline a &b &c &d\\
+\hline 1 &2 & 3 &4\\
+\hline
+\end{tabular}
+\end{table}
+%\fi
+
+\section{Figures}
+
+\begin{figure}[h]
+  \centerline{\includegraphics[scale=0.2]{circle.pdf}}
+  \caption{Big Data Science Loop}
+  \label{circle}
+\end{figure}
+
+By Figure~\ref{circle}, we can ... 
+
+\newpage
+
+\section{Some Frequently-Used Mathematical Notations}
+
+\begin{align*}
+&\alpha,\ \beta,\theta, \lambda,\  a_1,\cdots,a_n,\ b_1\ldots b_n,\ \{x_i\}_{1\le i\le n},\  X\sim \mathcal{N}(0,1)\\
+&X_n\rightarrow X,\ X_n\overset{D}\longrightarrow X,\ a\geq b,\ a\leq b, a\neq b\\
+&\sum_{i=1}^n a_i,\ \prod_{i=1}^n a_i,\ \lim_{n\rightarrow \infty}a_n,\ \int_a^b f(x)dx 
+\end{align*}
+
+
+\begin{align}
+&\alpha,\ \beta,\theta, \lambda,\ a_1,\cdots,a_n,\ b_1\ldots b_n,\ \{x_i\}_{1\le i\le n},\  X\sim \mathcal{N}(0,1)\label{eq1}\\
+&X_n\rightarrow X,\ X_n\overset{D}\longrightarrow X,\ a\geq b,\ a\leq b, a\neq b\\
+&\sum_{i=1}^n a_i,\ \prod_{i=1}^n a_i,\ \lim_{n\rightarrow \infty}a_n,\ \int_a^b f(x)dx 
+\end{align}
+
+
+\begin{gather}
+\alpha,\ \beta,\theta, \lambda,\ a_1,\cdots,a_n,\ b_1\ldots b_n,\ \{x_i\}_{1\le i\le n},\  X\sim \mathcal{N}(0,1)\\
+X_n\rightarrow X,\ X_n\overset{D}\longrightarrow X,\ a\geq b,\ a\leq b, a\neq b\\
+\sum_{i=1}^n a_i,\ \prod_{i=1}^n a_i,\ \lim_{n\rightarrow \infty}a_n,\ \int_a^b f(x)dx 
+\end{gather}
+
+By the equation~\eqref{eq1}, we can get that ... 
+
+
+
+\section{An Example}
+
+\begin{question}[Maximum Likelihood Estiamtor (MLE) and Asymptotic Normality (20 points)]
+Maximum likelihood is one of the most fundamental principals in parameter estimation. Suppose we have $n$ i.i.d. random samples $\left\{X_i\right\}_{i=1}^n$ that have probability density function $p_\theta(x)$. We are interested in estimating the parameter $\theta$. Denote the correspondent MLE by $\hat \theta_n$. In the lecture, we have known that under some regularity conditions, the MLE enjoys the asymptotic normality
+\begin{align}
+\sqrt n (\hat \theta_n-\theta)\overset{D}\longrightarrow N(0,\frac{1}{I(\theta)}),
+\end{align}
+where
+\begin{align*}
+I(\theta):=\mathbb{E}\left(-\frac{\partial^2}{\partial \theta^2}\log p_\theta(X)\right)
+=-\int_{\mathcal X}\left(\frac{\partial^2}{\partial \theta^2}\log p_\theta(x)\right)p_\theta(x)dx
+\end{align*}
+is the Fisher information and $\mathcal{X}$ is the range of $X_i$.
+\end{question}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

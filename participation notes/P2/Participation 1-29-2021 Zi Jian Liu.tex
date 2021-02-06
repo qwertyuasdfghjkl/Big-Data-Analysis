@@ -1,0 +1,149 @@
+\documentclass[twoside]{article}
+\usepackage{enumerate}
+\usepackage{amsmath,amsthm,amssymb,epsfig}
+\usepackage{url}
+\usepackage{times}
+%\usepackage{bbm}
+%\usepackage{star}
+
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newenvironment{pf}{{\noindent\sc Proof. }}{\qed}
+\newenvironment{map}{\[\begin{array}{cccc}} {\end{array}\]}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{exmp}{Example}
+\newtheorem*{prob}{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{exer}{Exercise}
+
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf ORF350 (Spring 2016) Analysis of Big Data \hfill Assignment: #4} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\Large \hfill #1  \hfill} }
+       \vspace{6mm}
+       \hbox to 6.28in { {\it Lecturer: #2 \hfill Email: #3} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{#1}{#1}
+   \vspace*{4mm}
+}
+
+\def\R{{\mathbb R}}
+\def\X{{\mathcal X}}
+\def\Y{{\mathcal Y}}
+\def\E{{\mathbb E}}
+\def\sign{{\rm sign}}
+\def\ds{\displaystyle}
+
+\begin{document}
+
+	\title{Lecture 4 Overview}
+	\author{Zi Jian Liu}
+	
+	\date{Feb 05 2021}
+	
+	\maketitle
+	
+	\section*{Bridge Regression}
+	
+	We started off extending the ridge regression into the Bridge regression. We covered the bridge estimator, and Lasso (Least absolute shrinkage and selection operator). It was found that lasso estimator is sparse, which means that many elements of beta is 0., which does not contribute to the predictor at all. Therefore for variable selection, the jth feature is not selected if the jth beta is equal to 0.
+	
+	We had a brief recap of splitting the dataset D into two subsets D1 and D2 as covered in lecture 3.
+	
+	A 2 dimensional graphical illustration was shown for Lasso and ridge. We looked at the pros and cons of Ridge, which is not sparse, strong convex, and handles collinearity, and Lasso, which is sparse, convex, and does not handle collinearity well. We learned that Elastinet is a combination of the advantages of both ridge and lasso. When $\alpha$ = 1. elastinet turns into lasso, and when $\alpha$ = 0, elastinet is the same as ridge.
+	
+	
+	Two-stage approach
+	\begin{enumerate}
+	
+		\item using $\alpha$ = 1.0, fit full lasso path and visualize this path.
+	
+		\item use $\alpha$ = 0.6 and fit regularization path. Examine if there is a significant change of the fitted path. If not, use Lasso($\alpha$ = 1.0), o/w use elastinet($\alpha$ = 0.6)
+
+	\end{enumerate}
+	for both cases, we use cross validation to choose $\lambda$
+
+	\section*{Classification/Discriminant Analysis}
+	
+	Classification is regression with categorical variables. Binary classification is where there are 2 labels, and there is also multiclass classification for more than 2 labels. This also can be reduced to binary. We will mostly focus on Binary classification
+	
+	With classification, we try to find a mapping h such that Y and h(x) are "close" to each other. We look at how to measure their closeness and the Bayes classification rule.
+	
+	We look at the Decision boundary between the different classes and if r(x) is a linear function of x, then we have a linear classifier. We finally look at logistic modelling and the logistic function.
+	
+	
+	
+	
+	\section*{Honor Code}
+	
+	I pledge my honor that this lecture summary is my own work and adheres to the guidelines in the instructions.
+	
+	-Zi Jian Liu
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

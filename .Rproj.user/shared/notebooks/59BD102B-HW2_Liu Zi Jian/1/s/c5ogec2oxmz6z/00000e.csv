@@ -1,0 +1,5 @@
+"0","plot1 = subset(housingData, zipcode == 98039, select = c(price))"
+"0","plot2 = subset(housingData, zipcode == 98004, select = c(price))"
+"0","plot3 = subset(housingData, zipcode == 98040, select = c(price))"
+"0",""
+"0","boxplot(plot1)"

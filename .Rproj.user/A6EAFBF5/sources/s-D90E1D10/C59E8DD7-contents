@@ -1,0 +1,112 @@
+---
+title: "HW2_Liu Zi Jian"
+author: "Zi Jian Liu"
+date: "05/02/2021"
+output:
+  pdf_document: 
+    toc: yes
+    keep_tex: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Question 1  
+## 1 a)
+```{r}
+housingData <- read.csv('_data_hw2/housingprice.csv')
+head(housingData)
+# coverting zipcode column into factors
+housingData$zipcode <- as.factor(housingData$zipcode)
+```
+
+
+Finding the most expensive zipcodes:  
+```{r}
+avgPrice <- tapply(housingData$price, housingData$zipcode, mean)
+avgPrice <- sort(avgPrice, decreasing = TRUE)
+avgPrice[1:3]
+```
+The top 3 zipcodes whose housing prices are the most expensive is 98039, 98004, and 98040  
+
+Boxplots of housing prices for these 3 zipcodes:
+```{r}
+plot1 = subset(housingData, zipcode == 98039, select = c(price))
+plot2 = subset(housingData, zipcode == 98004, select = c(price))
+plot3 = subset(housingData, zipcode == 98040, select = c(price))
+
+boxplot(plot1)
+boxplot(plot2)
+boxplot(plot3)
+```
+Above is the boxplots of the housing prices for the most expensive 3 zipcodes.
+
+## 1 b). Scatter plot  
+```{r}
+plot(housingData$sqft_living, housingData$price, main="relationship between sqft and price",
+   xlab="sqft living", ylab="price", pch=20)
+```
+above is a scatterplot showing the relationship between sqft and price.
+
+## 1 c).
+
+
+# Question 2.  
+
+## 2 a).  
+
+
+# Question 3. Wine Pricing  
+## 3 Part I. Preliminary Analysis  
+
+```{r}
+wineData <- read.csv('_data_hw2/wine.csv')
+head(wineData)
+```
+```{r}
+plot(wineData$AGST, wineData$Price, main="relationship between AGST and price",
+   xlab="average growing season temperature (AGST)", ylab="price", pch=20)
+plot(wineData$WinterRain, wineData$Price, main="relationship between winterRain and price",
+   xlab="winter rain amount", ylab="price", pch=20)
+plot(wineData$HarvestRain, wineData$Price, main="relationship between harvest rain and price",
+   xlab="Harvest rain amount", ylab="price", pch=20)
+plot(wineData$Age, wineData$Price, main="relationship between age and price",
+   xlab="age of wine", ylab="price", pch=20)
+```
+The variable that looks to be the most correlated with Price would be AGST. The scatter plot looks the most patterned and we see that generally, the price increases as AGST increases, an upwards trend.
+```{r}
+AGST <- cor.test(wineData$AGST, wineData$Price, 
+                    method = "pearson")
+winterRain <- cor.test(wineData$WinterRain, wineData$Price, 
+                    method = "pearson")
+harvestRain <- cor.test(wineData$HarvestRain, wineData$Price, 
+                    method = "pearson")
+ageWine <- cor.test(wineData$Age, wineData$Price, 
+                    method = "pearson")
+AGST
+winterRain
+harvestRain
+ageWine
+```
+As we can see from the pearson's correlation scores above, the cor of 0.6596 for AGST is the highest correlation between a variable and price. This backs up our claim before that AGST is the most correlated with price.  
+
+## 2. Part II. Marginal Regression Analysis  
+```{r}
+install.packages("rlang")
+library(rlang)
+sessionInfo()
+```
+
+```{r}
+#install.packages('ggplot2')
+library(ggplot2)
+#install.packages('sjPlot')
+library(sjPlot)
+```
+
+```{r}
+fit <- lm(AGST ~ Price, data = wineData)
+plot_model(fit, type = "pred")
+```
+

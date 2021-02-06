@@ -1,0 +1,2 @@
+"0","plot(wineData$WinterRain, wineData$Price, main=""relationship between winterRain and price"","
+"0","   xlab=""winter rain amount"", ylab=""price"", pch=20)"

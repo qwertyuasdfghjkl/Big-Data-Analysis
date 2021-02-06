@@ -1,0 +1,4 @@
+"0",""
+"0","# Set zipcode as factors"
+"0","housingprice$zipcode = as.factor(housingprice$zipcode)"
+"0","head(housingprice)"
