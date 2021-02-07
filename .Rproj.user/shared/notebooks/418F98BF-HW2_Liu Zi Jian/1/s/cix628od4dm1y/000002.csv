@@ -1,0 +1,2 @@
+"0","plot(wineData$AGST, wineData$Price, main=""relationship between AGST and price"","
+"0","   xlab=""average growing season temperature (AGST)"", ylab=""price"", pch=20)"

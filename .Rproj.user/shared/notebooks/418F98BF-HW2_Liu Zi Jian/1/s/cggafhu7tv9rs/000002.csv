@@ -1,0 +1,2 @@
+"0","winetestData <- read.csv('_data_hw2/winetest.csv')"
+"0","head(winetestData)"

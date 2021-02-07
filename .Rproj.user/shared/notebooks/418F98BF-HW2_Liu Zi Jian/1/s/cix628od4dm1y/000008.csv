@@ -1,0 +1,2 @@
+"0","plot(wineData$Age, wineData$Price, main=""relationship between age and price"","
+"0","   xlab=""age of wine"", ylab=""price"", pch=20)"

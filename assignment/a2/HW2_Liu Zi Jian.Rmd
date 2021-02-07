@@ -51,10 +51,127 @@ above is a scatterplot showing the relationship between sqft and price.
 
 ## 1 c).
 
+```{r}
+train = read.csv('_data_hw2/train.data.csv')
+head(train)
+
+test = read.csv('_data_hw2/test.data.csv')
+head(test)
+```
+```{r}
+# training
+modelprice = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot, data = train)
+summary(modelprice)
+```
+The Rsquared of the model on training data is 0.5101
+
+```{r}
+# Evaluate model on test data
+testpredict = predict(modelprice, test)
+prices = test$price
+e = prices - testpredict
+R2 = 1-sum(e^2)/sum((prices-mean(prices))^2)
+R2
+```
+The Rsquared of the model on testing data is 0.505  
+
+## 1. d) adding zipcode  
+```{r}
+# training
+modelpricezip = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot +zipcode, data = train)
+summary(modelpricezip)
+```
+The Rsquared of the model on training data is 0.5163
+
+```{r}
+# Evaluate model on test data
+testpredictzip = predict(modelpricezip, test)
+prices = test$price
+e = prices - testpredictzip
+R2zip = 1-sum(e^2)/sum((prices-mean(prices))^2)
+R2zip
+```
+The Rsquared of the model on testing data is 0.512  
+  
+## 1. e)  
+```{r}
+fancy = read.csv('_data_hw2/fancyhouse.csv')
+head(fancyhouse)
+```
+```{r}
+billgate = predict(modelpricezip, fancy)
+billgate
+```
+We predict that the price of bill gates house is 15,642,273. This is a reasonable estimate for the price.  
+
+  
+## 1. f)  
+```{r}
+n = nrow(train)
+d = length(train)
+n
+d
+```
+if n>d+1 (15129 > 22 + 1) then adding another covariate never hurts R2 over the training data.
+
+```{r}
+covariate4 = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot, data = train)
+covariate5 = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot + zipcode, data = train)
+covariate6 = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot + zipcode + floors, data = train)
+covariate7 = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot + zipcode + floors + condition, data = train)
+covariate8 = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot + zipcode + floors + condition + grade, data = train)
+summary(covariate4)
+summary(covariate5)
+summary(covariate6)
+summary(covariate7)
+summary(covariate8)
+```
+As we can see above, adding another covariate to our model either does not change our Rsquared or increases our Rsquared.
 
 # Question 2.  
 
 ## 2 a).  
+```{r}
+modelmult = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot + zipcode + bedrooms * bathrooms, data = train)
+summary(modelmult)
+```
+The R2 of the new model on the training data is 0.5224
+```{r}
+newmodelpred = predict(modelmult, test)
+prices = test$price
+e = prices - newmodelpred
+R2 = 1-sum(e^2)/sum((prices-mean(prices))^2)
+R2
+```
+The R squared of the new model on the testing data is 0.5165.  
+
+## 2 b).  
+Another feature engineering that further improves the model that we have in question 2. a) is that we can try transformations of the original features, such as trying log, sqrt, squared of different features to improve the Rsquared of the testing data.
+  
+```{r}
+modelsquare = lm(price ~ bedrooms + bathrooms + sqft_living + sqft_lot + sqrt(zipcode) + bedrooms * bathrooms, data = train)
+summary(modelsquare)
+newmodelpred2 = predict(modelsquare, test)
+prices = test$price
+e = prices - newmodelpred2
+R2 = 1-sum(e^2)/sum((prices-mean(prices))^2)
+R2
+```
+If we input the sqrt of zipcode instead of zipcode in our model, the Rsquared of our testing data increases from 0.5165114 to 0.516512. 
+
+## 2 c).  
+```{r}
+modelpoly = lm(price ~ poly(bedrooms, 2) + poly(bathrooms, 3) + sqft_living + sqft_lot + zipcode, data = train)
+summary(modelpoly)
+```
+```{r}
+modelpolypred = predict(modelpoly, test)
+prices = test_data$price
+e = prices - modelpolypred
+R2 = 1-sum(e^2)/sum((prices-mean(prices))^2)
+R2
+```
+By using a polynomial term of bedrooms and bathrooms variables of degrees 2 and 3, we find that the Rsquared of the new model on training data is = 0.5423 and on testing data = 0.5285. This is an increase of Rsquared as compared to before.
 
 
 # Question 3. Wine Pricing  
@@ -110,7 +227,7 @@ fit <- lm(Price ~ AGST, data = wineData)
 plot_model(fit, type = "pred")
 summary(fit)
 ```
-The fitted coefficient values is -3.4178 and 0.6351. The intercept is -3.4178 and for every 1 unit increase in AGST, price increases by 0.6351. The Rsquared value is 0.435.
+The fitted coefficient values is -3.4178 and 0.6351. The intercept is -3.4178 and the slope is 0.6351. For every 1 unit increase in AGST, price increases by 0.6351. The Rsquared value is 0.435.
 
 ## 3. Part III. Multiple Regression Analysis
 ```{r}
@@ -147,3 +264,151 @@ multi_fit5 = lm(Price ~ AGST + HarvestRain + Age + WinterRain + FrancePop, data 
 summary(multi_fit5)
 ```
 As seen above, we can see that rains in the winter followed by hot summer (high AGST) both has a positive relation with price. However the hot summer affects the price of the wine a lot more than the rain in the winter. Rainfall at harvest also has a negative relation with price. If we take that the price reflects the quality of wine, then Prof. Ashenfelter's findings is consistent with our model.
+
+# Question 4.  Moneyball  
+# 4. Part I. Preliminary Analysis  
+```{r}
+baseballData <- read.csv('_data_hw2/baseball.csv')
+head(baseballData)
+```
+
+```{r}
+hist(baseballData$OBP)
+boxplot(baseballData$OBP)
+mean(baseballData$OBP)
+median(baseballData$OBP)
+```
+Histogram and boxplot for OBP. The mean and median of OBP is 0.3263312 and 0.326 respectively. This means that the distribution is not skewed. You can also verify this from the boxplot and histogram.
+
+```{r}
+hist(baseballData$SLG)
+boxplot(baseballData$SLG)
+mean(baseballData$SLG)
+median(baseballData$SLG)
+```
+Histogram and boxplot for SLG. The mean and median of OBP is 0.3973417 and 0.396 respectively. This means that the distribution is not skewed. You can also verify this from the boxplot and histogram.
+
+```{r}
+hist(baseballData$BA)
+boxplot(baseballData$BA)
+mean(baseballData$BA)
+median(baseballData$BA)
+```
+Histogram and boxplot for BA. The mean and median of OBP is 0.2592727 and 0.26 respectively. This means that the distribution is not skewed. You can also verify this from the boxplot and histogram.
+
+## 4. Part II. Marginal Regression Analysis
+```{r}
+BAfit <- lm(RS ~ BA, data = baseballData)
+summary(BAfit)
+plot(baseballData$BA, baseballData$RS)
+abline(BAfit)
+```
+Above is the scatter plot using model RS ~ BA. The intercept and slope are -805.51, and 5864.84 respectively, the Rsquared is 0.6839
+```{r}
+plot(BAfit)
+```
+From the second plot, the QQ plot of the fitted residuals for model RS ~ BA, we can verify that the residuals are not skewly distributed and that the model is reasonable.
+
+```{r}
+OBPfit <- lm(RS ~ OBP, data = baseballData)
+summary(OBPfit)
+plot(baseballData$OBP, baseballData$RS)
+abline(OBPfit)
+```
+Above is the scatter plot using model RS ~ OBP. The intercept and slope are -1076.6, and 5490.4 respectively, the Rsquared is 0.8109
+```{r}
+plot(OBPfit)
+```
+From the second plot, the QQ plot of the fitted residuals for model RS ~ OBP, we can verify that the residuals are not skewly distributed and that the model is reasonable.
+
+```{r}
+SLGfit <- lm(RS ~ SLG, data = baseballData)
+summary(SLGfit)
+plot(baseballData$SLG, baseballData$RS)
+abline(SLGfit)
+```
+Above is the scatter plot using model RS ~ SLG. The intercept and slope are -289.37, and 2527.92 respectively, the Rsquared is 0.8441
+```{r}
+plot(SLGfit)
+```
+From the second plot, the QQ plot of the fitted residuals for model RS ~ SLG, we can verify that the residuals are not skewly distributed and that the model is reasonable.
+
+Comparing the Rsquared results, we see that Rsquared for BA = 0.6839, Rsquared for OBP = 0.8109 and Rsquared for SLG = 0.8441. We see that the Rsquared result for OBP and for SLG is higher than the Rsquared for BA. That is consistent with Billy's claim that OBP and SLG have much more impact than BA. This is not consistent with the intuition that BA is thought to be the most responsible for RS.  
+
+## 4. Part III. Multiple Regression Analysis  
+```{r}
+multi_fitBaseball = lm(RS ~ BA + SLG + OBP, data = baseballData)
+summary(multi_fitBaseball)
+plot(multi_fitBaseball)
+```
+For the model RS ∼ BA + SLG + OBP, the intercept is -806.08, and the coefficient for BA is -134.90 with significance p = 0.236  the coefficient for SLG is 1533.88 with significance p < 2e-16 And the coefficient for OBP is 2900.94 with significance p < 2e-16. The second plot above is the QQ plot of the residuals. We can verify that the residuals are not skewly distributed and that the model is reasonable. The fitting results is not consistent with that in Part II, especially for the fitted coefficient of BA. (coeff = 5864.84 vs -134.90, one is a big positive, and the other is negative). We find that BA is not significant and SLG and OBP is significant
+
+```{r}
+multi_fitBaseball2 = lm(RS ~ BA + SLG, data = baseballData)
+summary(multi_fitBaseball2)
+plot(multi_fitBaseball2)
+```
+For the model RS ∼ BA + SLG , the intercept is -551.08, and the coefficient for BA is 1904.66 with significance p < 2e-16  the coefficient for SLG is 1943.77 with significance p < 2e-16. The second plot above is the QQ plot of the residuals. We can verify that the residuals are not skewly distributed and that the model is reasonable. The fitting results is more consistent with that in Part II, especially for the fitted coefficient of BA. (coeff = 5864.84 vs 1904.66 vs -134.90 for model RS ∼ BA + SLG + OBP). Both of these variables are significant.
+
+Comparing the Rsquared for both of these models: for model RS ∼ BA + SLG + OBP, Rsquared = 0.9249, and for model RS ∼ BA + SLG, Rsquared = 0.8711. Therefore the model that we prefer is RS ∼ BA + SLG + OBP since the Rsquared is greater.  
+
+
+So in the question they want RS ∼ BA + SLG. However we want to remove BA so here is an extra regression for model RS ~ SLG + OBP
+```{r}
+multi_fitBaseball3 = lm(RS ~ SLG + OBP, data = baseballData)
+summary(multi_fitBaseball3)
+plot(multi_fitBaseball3)
+```
+For the model RS ∼ SLG + OBP , the intercept is -811.66, and the coefficient for SLG is 1517.58 with significance p < 2e-16  the coefficient for OBP is 2830.70 with significance p < 2e-16. The second plot above is the QQ plot of the residuals. We can verify that the residuals are not skewly distributed and that the model is reasonable. Both of these variables are significant.
+
+Comparing the Rsquared for models: for model RS ∼ BA + SLG + OBP, Rsquared = 0.9249, and for model RS ∼ SLG + OBP, Rsquared = 0.9248. Both Rsquared is roughly the same so we can consider dropping BA and just have SLG and OBP in our model.
+
+## 4. Part IV.  
+```{r}
+head(baseballData)
+```
+
+```{r}
+RD <- baseballData$RS - baseballData$RA
+baseballData2 <- baseballData
+baseballData2$RD=RD
+baseballData2 <- baseballData2[baseballData2$Year < 2002, ]
+head(baseballData2)
+```
+```{r}
+modelw_rd = lm(W ~ RD, data = baseballData2)
+summary(modelw_rd)
+```
+
+```{r}
+modelrs = lm(RS ~ OBP + SLG, data = baseballData2)
+summary(modelrs)
+```
+
+```{r}
+modelra = lm(RA ~ OOBP + OSLG, data = baseballData2)
+summary(modelra)
+```
+
+in 2002 OBP = .349, SLG = .430, OOBP = .307 and OSLG = .373 for Oakland Athletics.
+we have that RA = -837.38 +2913.60xOOBP + 1514.29xOSLG
+RS = -804.63 + 2737.77xOBP + 1584.91xSLG
+W = 80.881375 + 0.105766xRD
+```{r}
+OBP = .349
+SLG = .430
+OOBP = .307
+OSLG = .373
+RA = -837.38 +2913.60*OOBP + 1514.29*OSLG
+RS = -804.63 + 2737.77*OBP + 1584.91*SLG
+RD = RS-RA
+W = 80.881375 + 0.105766*RD
+W
+
+```
+From the three models, we can predict that Oakland would win 103 games in 2002. By looking at our dataset, we see that Oakland did win 103 games in 2002
+```{r}
+oakland <- baseballData
+oakland[oakland$Year == 2002 & oakland$Team == 'OAK', ]
+```
+

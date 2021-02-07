@@ -1,0 +1,2 @@
+"0","housingData <- read.csv('_data_hw2/housingprice.csv')"
+"0","head(housingData)"

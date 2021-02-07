@@ -1,0 +1,2 @@
+"0","plot(housingData$sqft_living, housingData$price, main=""relationship between sqft and price"","
+"0","   xlab=""sqft living"", ylab=""price"", pch=20)"
